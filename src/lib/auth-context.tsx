@@ -9,9 +9,21 @@ type AuthContextType = {
   signOut: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | null>(null);
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+}
+
+export default function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,6 +51,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         provider: "twitter",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            tos_url: `${window.location.origin}/terms`,
+            privacy_policy_url: `${window.location.origin}/privacy`,
+          },
         },
       });
       if (error) throw error;
@@ -65,14 +81,3 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-
-function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-}
-
-export { useAuth };
-export default AuthProvider;

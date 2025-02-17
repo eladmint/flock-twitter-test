@@ -4,6 +4,8 @@ import AuthProvider from "@/lib/auth-context";
 import Home from "./components/home";
 import CampaignPage from "./components/campaign/campaign-page";
 import AuthCallback from "./pages/auth/callback";
+import Terms from "./pages/legal/terms";
+import Privacy from "./pages/legal/privacy";
 import routes from "tempo-routes";
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/campaign/:id" element={<CampaignPage />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
       </Suspense>
     </AuthProvider>

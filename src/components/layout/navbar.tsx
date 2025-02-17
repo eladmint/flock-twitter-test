@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Bell, Home, MessageSquare, User } from "lucide-react";
+import { Bell, Home, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import TwitterAuthButton from "../auth/twitter-auth-button";
-import { useAuth } from "@/lib/auth-context";
+import AuthProvider from "@/lib/auth-context";
 
 export default function Navbar() {
   return (
@@ -21,7 +21,9 @@ export default function Navbar() {
           <Button variant="ghost" size="icon">
             <MessageSquare className="h-5 w-5 text-[#001F3F]" />
           </Button>
-          <TwitterAuthButton />
+          <AuthProvider>
+            <TwitterAuthButton />
+          </AuthProvider>
         </div>
       </div>
     </nav>
