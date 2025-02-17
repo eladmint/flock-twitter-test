@@ -7,7 +7,7 @@ import CampaignAnalytics from "./campaign-analytics";
 
 export default function CampaignPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F5] pt-16">
+    <div className="min-h-screen bg-[#F5F5F5] pt-16 pb-16">
       <div className="aspect-[3/1] bg-gradient-to-r from-[#001F3F] to-[#FF4500] relative">
         <img
           src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800"

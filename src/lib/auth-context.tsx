@@ -47,7 +47,7 @@ export default function AuthProvider({
 
   const signInWithTwitter = async () => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "twitter",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
@@ -57,6 +57,11 @@ export default function AuthProvider({
           },
         },
       });
+
+      // If there's no error but also no URL to redirect to, something went wrong
+      if (!error && !data?.url) {
+        throw new Error("No redirect URL received from Twitter");
+      }
       if (error) throw error;
     } catch (error) {
       console.error("Error signing in with Twitter:", error);
